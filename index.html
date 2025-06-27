@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stylish Google Form</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 550px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    form:hover {
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      background: #fdfdfd;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.8);
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #66afe9;
+      outline: none;
+    }
+
+    fieldset {
+      margin-top: 20px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background-color: #f8f9fa;
+    }
+
+    fieldset legend {
+      font-weight: 600;
+      padding: 0 5px;
+      color: #555;
+    }
+
+    fieldset label {
+      display: block;
+      margin: 10px 0 0;
+      font-weight: normal;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #43e97b, #38f9d7);
+    }
+
+  </style>
+</head>
+<body>
+
+  <form id="googleForm">
+    <h2 style="text-align:center; color:#333;">Custom Google Form</h2>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="gender">Gender</label>
+    <select name="gender" id="gender">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <fieldset>
+      <legend>Age Group</legend>
+      <label><input type="radio" name="ageGroup" value="Under 18"> Under 18</label>
+      <label><input type="radio" name="ageGroup" value="18-30"> 18-30</label>
+      <label><input type="radio" name="ageGroup" value="31-50"> 31-50</label>
+      <label><input type="radio" name="ageGroup" value="51+"> 51+</label>
+    </fieldset>
+
+    <label for="comments">Comments</label>
+    <textarea name="comments" id="comments" rows="4"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyw0ZdN11DwrGv3lFSIttj8jEFJB3hXG9OsSySqXOKA5usy7RJg4UG6kE0efY7onafFOg/exec';
+    const form = document.getElementById('googleForm');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          alert("Form submitted successfully!");
+          form.reset();
+        })
+        .catch(error => alert('Error!', error.message));
+    });
+  </script>
+
+</body>
+</html>
